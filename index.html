@@ -464,17 +464,55 @@
   fitAll(); document.fonts.ready.then(fitAll);
 
   async function downloadPNG(){
-    document.activeElement.blur();
+    if (document.activeElement) document.activeElement.blur();
     const prev = banner.style.transform;
     banner.style.transform = 'none';
+    let canvas;
     try{
+      if (typeof html2canvas !== 'function') throw new Error('html2canvas did not load (no internet?)');
       await document.fonts.ready;
-      const canvas = await html2canvas(banner, {width:1080, height:1350, scale:1});
-      const a = document.createElement('a');
-      a.download = 'morning-sport-banner.png';
-      a.href = canvas.toDataURL('image/png');
-      a.click();
-    } finally { banner.style.transform = prev; }
+      canvas = await html2canvas(banner, {width:1080, height:1350, scale:1});
+    } catch(err){ banner.style.transform = prev; showExport(null, String(err)); return; }
+    banner.style.transform = prev;
+    canvas.toBlob(blob => showExport(blob), 'image/png');
+  }
+
+  // Show the finished image with Share / Download buttons.
+  // iPhone ignores script-started downloads, so the image is shown for long-press saving
+  // and the share sheet is opened from a fresh tap.
+  function showExport(blob, err){
+    const old = document.getElementById('exportOv'); if (old) old.remove();
+    const ov = document.createElement('div'); ov.id = 'exportOv';
+    ov.style.cssText = 'position:fixed;inset:0;z-index:99;background:rgba(10,14,24,.95);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px;color:#fff;text-align:center;font-size:16px';
+    const btnCss = 'font-family:inherit;font-size:16px;font-weight:600;padding:11px 20px;border:0;border-radius:8px;cursor:pointer;background:#5494c0;color:#fff;text-decoration:none';
+    const mk = (tag, text, css) => { const e = document.createElement(tag); e.textContent = text; if (css) e.style.cssText = css; return e; };
+    if (!blob){
+      ov.appendChild(mk('div', 'היצוא נכשל'));
+      const s = mk('small', err || ''); s.dir = 'ltr'; ov.appendChild(s);
+    } else {
+      const d = new Date(), z = n => String(n).padStart(2, '0');
+      const name = 'sport-' + d.getFullYear() + z(d.getMonth() + 1) + z(d.getDate()) + '-' + z(d.getHours()) + z(d.getMinutes()) + z(d.getSeconds()) + '.png';
+      const url = URL.createObjectURL(blob);
+      const img = document.createElement('img');
+      img.src = url; img.alt = name; img.style.cssText = 'max-width:92vw;max-height:60vh;border-radius:6px;-webkit-touch-callout:default;user-select:auto';
+      ov.appendChild(img);
+      ov.appendChild(mk('div', 'באייפון: לחיצה ארוכה על התמונה ← "שמירה בתמונות", או כפתור השיתוף', 'font-size:14px;opacity:.8;max-width:420px'));
+      const row = mk('div', '', 'display:flex;gap:10px;flex-wrap:wrap;justify-content:center');
+      let file = null;
+      try { file = new File([blob], name, {type: 'image/png'}); } catch(e) {}
+      if (file && navigator.canShare && navigator.canShare({files: [file]})) {
+        const sh = mk('button', 'שיתוף / שמירה', btnCss);
+        sh.addEventListener('click', () => navigator.share({files: [file]}).catch(() => {}));
+        row.appendChild(sh);
+      }
+      const dl = mk('a', 'הורדה', btnCss); dl.href = url; dl.download = name;
+      row.appendChild(dl);
+      ov.appendChild(row);
+    }
+    const close = mk('button', 'סגירה', btnCss + ';background:transparent;border:2px solid #5494c0');
+    close.addEventListener('click', () => ov.remove());
+    ov.appendChild(close);
+    document.body.appendChild(ov);
   }
 </script>
 </body>
