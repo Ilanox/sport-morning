@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>באנר – מחר בוקר ספורט</title>
+<meta name="description" content="יוצר באנרים למחר בוקר ספורט">
+<meta property="og:type" content="website">
+<meta property="og:title" content="מחר בוקר ספורט">
+<meta property="og:description" content="יוצר באנרים למחר בוקר ספורט">
+<meta property="og:url" content="https://ilanox.github.io/sport-morning/">
+<meta property="og:image" content="https://ilanox.github.io/sport-morning/preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <link href="https://fonts.googleapis.com/css2?family=Karantina:wght@400;700&family=Assistant:wght@400;600;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <style>
@@ -417,6 +425,25 @@
     document.querySelectorAll('#schemes button').forEach(x => x.classList.toggle('on', x.dataset.s === name));
   }
   document.getElementById('schemes').addEventListener('click', e => { if (e.target.dataset.s) setScheme(e.target.dataset.s); });
+  // paste / drop as plain text only, so outside formatting never overrides the design
+  function insertPlain(text){
+    text = text.replace(/\s*\n\s*/g, ' ');
+    if (!document.execCommand('insertText', false, text)) {
+      const sel = window.getSelection(); if (!sel.rangeCount) return;
+      const r = sel.getRangeAt(0); r.deleteContents();
+      const n = document.createTextNode(text); r.insertNode(n);
+      r.setStartAfter(n); r.collapse(true); sel.removeAllRanges(); sel.addRange(r);
+    }
+  }
+  document.querySelectorAll('#banner [contenteditable]').forEach(el => {
+    el.addEventListener('paste', e => {
+      e.preventDefault();
+      insertPlain((e.clipboardData || window.clipboardData).getData('text/plain'));
+      el.dispatchEvent(new Event('input'));
+    });
+    el.addEventListener('drop', e => e.preventDefault());
+    el.addEventListener('beforeinput', e => { if (e.inputType && e.inputType.startsWith('format')) e.preventDefault(); });
+  });
   if (location.hash) { const [t, c] = location.hash.slice(1).split('-'); setTheme(t); if (c) setScheme(c); }
 
   const banner = document.getElementById('banner');
