@@ -11,6 +11,7 @@
     --paper:#f5f8fc;
     --ink:#1d3c88;
     --red:#5494c0;
+    --light:#86b8dc;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:#1b2333;font-family:'Assistant',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;gap:16px;padding:16px}
@@ -62,6 +63,9 @@
   .track{margin:6px -84px 30px;flex:1;min-height:200px;position:relative}
   .scene{position:absolute;inset:0;width:100%;height:100%;display:none}
   .scene.on{display:block}
+  .schemes{display:flex;gap:10px;justify-content:center}
+  .schemes button{width:34px;height:34px;border-radius:50%;border:3px solid transparent;cursor:pointer;padding:0}
+  .schemes button.on{border-color:#fff}
   .themes{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;max-width:560px}
   .themes button{font-family:inherit;font-size:15px;font-weight:600;padding:8px 14px;border:2px solid #5494c0;border-radius:20px;cursor:pointer;background:transparent;color:#dce9f8}
   .themes button.on{background:#5494c0;color:#fff}
@@ -73,7 +77,7 @@
   .speed i{display:block;height:6px;background:var(--ink);border-radius:3px}
 
   .fact{position:relative;background:var(--ink);color:var(--paper);padding:40px 46px 44px;display:flex;gap:34px;align-items:flex-start}
-  .fact-label{font-family:'Karantina';font-weight:700;font-size:100px;line-height:1.05;color:#86b8dc;white-space:nowrap}
+  .fact-label{font-family:'Karantina';font-weight:700;font-size:100px;line-height:1.05;color:var(--light);white-space:nowrap}
   .fact-text{font-size:42px;line-height:1.3;padding-top:6px}
 
   [contenteditable]:focus{outline:3px dashed var(--red);outline-offset:6px}
@@ -279,7 +283,7 @@
           <defs><linearGradient id="tr-foo" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stop-color="#5494c0" stop-opacity=".85"/><stop offset="1" stop-color="#5494c0" stop-opacity="0"/>
           </linearGradient></defs>
-          <g transform="translate(760,100) rotate(64) scale(0.42) translate(-100,-146)">
+          <g transform="translate(720,100) rotate(64) scale(0.42) translate(-100,-146)">
             <polygon points="90,286 110,286 128,760 72,760" fill="url(#tr-foo)"/>
             <path fill="#0b0b0b" d="M100 0 C106 22 110 52 112 92 L114 122 L188 186 L188 200 L116 192 L118 242 L158 268 L158 280 L112 276 L105 292 L95 292 L88 276 L42 280 L42 268 L82 242 L84 192 L12 200 L12 186 L86 122 L88 92 C90 52 94 22 100 0Z"/>
             <rect x="186" y="150" width="6" height="58" rx="3" fill="#0b0b0b"/>
@@ -293,11 +297,12 @@
           <rect x="720" y="500" width="180" height="170" fill="#c3d6ee"/>
           <rect x="900" y="500" width="180" height="170" fill="#b2cbe8"/>
           <line x1="0" y1="500" x2="1080" y2="500" stroke="#ffffff" stroke-width="5"/>
-          <path d="M640 670 L700 560 L1080 560" fill="none" stroke="#ffffff" stroke-width="5"/>
-          <line x1="740" y1="250" x2="770" y2="560" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="766" y1="250" x2="796" y2="560" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="792" y1="250" x2="822" y2="560" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="818" y1="250" x2="848" y2="560" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="844" y1="250" x2="874" y2="560" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="870" y1="250" x2="900" y2="560" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="896" y1="250" x2="926" y2="560" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="922" y1="250" x2="952" y2="560" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="948" y1="250" x2="978" y2="560" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="974" y1="250" x2="1004" y2="560" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="1000" y1="250" x2="1030" y2="560" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="1026" y1="250" x2="1056" y2="560" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="1052" y1="250" x2="1082" y2="560" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="742.0" y1="270" x2="1060" y2="270" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="744.6" y1="296" x2="1060" y2="296" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="747.2" y1="322" x2="1060" y2="322" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="749.8" y1="348" x2="1060" y2="348" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="752.4" y1="374" x2="1060" y2="374" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="755.0" y1="400" x2="1060" y2="400" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="757.6" y1="426" x2="1060" y2="426" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="760.2" y1="452" x2="1060" y2="452" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="762.8" y1="478" x2="1060" y2="478" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="765.4" y1="504" x2="1060" y2="504" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="768.0" y1="530" x2="1060" y2="530" stroke="#1d3c88" stroke-width="2" opacity=".45"/><line x1="770.6" y1="556" x2="1060" y2="556" stroke="#1d3c88" stroke-width="2" opacity=".45"/>
-          <polyline points="730,590 730,240 1080,240" fill="none" stroke="#ffffff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
-          
-          <polyline points="730,590 730,240 1080,240" fill="none" stroke="#1d3c88" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M640 670 L690 566 L1080 566" fill="none" stroke="#ffffff" stroke-width="5"/>
+          <defs><clipPath id="goalnet"><rect x="770" y="250" width="330" height="336"/></clipPath></defs>
+          <rect x="770" y="250" width="330" height="336" fill="#ffffff" opacity=".45"/>
+          <g clip-path="url(#goalnet)" stroke="#1d3c88" stroke-width="2" opacity=".5"><line x1="792" y1="250" x2="792" y2="586"/><line x1="814" y1="250" x2="814" y2="586"/><line x1="836" y1="250" x2="836" y2="586"/><line x1="858" y1="250" x2="858" y2="586"/><line x1="880" y1="250" x2="880" y2="586"/><line x1="902" y1="250" x2="902" y2="586"/><line x1="924" y1="250" x2="924" y2="586"/><line x1="946" y1="250" x2="946" y2="586"/><line x1="968" y1="250" x2="968" y2="586"/><line x1="990" y1="250" x2="990" y2="586"/><line x1="1012" y1="250" x2="1012" y2="586"/><line x1="1034" y1="250" x2="1034" y2="586"/><line x1="1056" y1="250" x2="1056" y2="586"/><line x1="1078" y1="250" x2="1078" y2="586"/><line x1="770" y1="272" x2="1090" y2="272"/><line x1="770" y1="294" x2="1090" y2="294"/><line x1="770" y1="316" x2="1090" y2="316"/><line x1="770" y1="338" x2="1090" y2="338"/><line x1="770" y1="360" x2="1090" y2="360"/><line x1="770" y1="382" x2="1090" y2="382"/><line x1="770" y1="404" x2="1090" y2="404"/><line x1="770" y1="426" x2="1090" y2="426"/><line x1="770" y1="448" x2="1090" y2="448"/><line x1="770" y1="470" x2="1090" y2="470"/><line x1="770" y1="492" x2="1090" y2="492"/><line x1="770" y1="514" x2="1090" y2="514"/><line x1="770" y1="536" x2="1090" y2="536"/><line x1="770" y1="558" x2="1090" y2="558"/><line x1="770" y1="580" x2="1090" y2="580"/></g>
+          <polyline points="770,590 770,250 1110,250" fill="none" stroke="#1d3c88" stroke-width="20" stroke-linejoin="round" stroke-linecap="round"/>
+          <polyline points="770,590 770,250 1110,250" fill="none" stroke="#ffffff" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
           <ellipse cx="330" cy="638" rx="130" ry="14" fill="#c3d6ee"/>
           <g transform="translate(130,150) scale(1.45)"><polyline points="162,102 116,126 78,156" fill="none" stroke="#1d3c88" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/><polyline points="150,206 140,268 150,328 176,332" fill="none" stroke="#1d3c88" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/><polyline points="170,96 150,206" fill="none" stroke="#1d3c88" stroke-width="56" stroke-linecap="round" stroke-linejoin="round"/><polyline points="156,210 220,246 282,270" fill="none" stroke="#1d3c88" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/><polyline points="172,102 220,116 252,82" fill="none" stroke="#1d3c88" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/><circle cx="178" cy="40" r="28" fill="#1d3c88"/></g>
           <circle cx="590" cy="560" r="36" fill="#ffffff" stroke="#1d3c88" stroke-width="6"/>
@@ -386,13 +391,33 @@
   </div>
 </div>
 
+<div class="schemes" id="schemes"><button data-s="blue" title="blue" style="background:#5494c0" class="on"></button><button data-s="red" title="red" style="background:#cf5a56"></button><button data-s="green" title="green" style="background:#55a676"></button><button data-s="yellow" title="yellow" style="background:#dfae1f"></button><button data-s="purple" title="purple" style="background:#8f6fc8"></button></div>
+
 <script>
   function setTheme(t){
     document.querySelectorAll('#themes button').forEach(b => b.classList.toggle('on', b.dataset.t === t));
     document.querySelectorAll('.scene').forEach(s => s.classList.toggle('on', s.dataset.theme === t));
   }
   document.getElementById('themes').addEventListener('click', e => { if (e.target.dataset.t) setTheme(e.target.dataset.t); });
-  if (location.hash) setTheme(location.hash.slice(1));
+
+  const SCHEMES = {"blue": {"ink": "#1d3c88", "mid": "#5494c0", "dark2": "#3060a0", "light": "#86b8dc", "pale": "#dce9f8", "pale2": "#c3d6ee", "pale3": "#b2cbe8", "paper": "#f5f8fc"}, "red": {"ink": "#8a1c22", "mid": "#cf5a56", "dark2": "#a8302f", "light": "#e59a94", "pale": "#fae3e0", "pale2": "#f1c9c4", "pale3": "#eab5af", "paper": "#fdf7f6"}, "green": {"ink": "#1c5a36", "mid": "#55a676", "dark2": "#2f7d50", "light": "#8ecba6", "pale": "#dff3e6", "pale2": "#c5e4d0", "pale3": "#b0d9bf", "paper": "#f6fbf7"}, "yellow": {"ink": "#6e5200", "mid": "#dfae1f", "dark2": "#b4860c", "light": "#efd06a", "pale": "#fbf1cc", "pale2": "#f3e3a4", "pale3": "#ecd88a", "paper": "#fffcf0"}, "purple": {"ink": "#4a2a8a", "mid": "#8f6fc8", "dark2": "#6a45a8", "light": "#b7a0de", "pale": "#ece4f8", "pale2": "#d9cbef", "pale3": "#cbb9e8", "paper": "#f9f7fd"}};
+  let curScheme = 'blue';
+  function setScheme(name){
+    const from = SCHEMES[curScheme], to = SCHEMES[name]; if (!to) return;
+    const map = {}; for (const k in from) map[from[k]] = to[k];
+    const b = document.getElementById('banner');
+    b.querySelectorAll('*').forEach(el => {
+      for (const a of ['fill', 'stroke', 'stop-color']) {
+        const v = el.getAttribute(a); if (v && map[v.toLowerCase()]) el.setAttribute(a, map[v.toLowerCase()]);
+      }
+    });
+    b.style.setProperty('--ink', to.ink); b.style.setProperty('--red', to.mid);
+    b.style.setProperty('--light', to.light); b.style.setProperty('--paper', to.paper);
+    curScheme = name;
+    document.querySelectorAll('#schemes button').forEach(x => x.classList.toggle('on', x.dataset.s === name));
+  }
+  document.getElementById('schemes').addEventListener('click', e => { if (e.target.dataset.s) setScheme(e.target.dataset.s); });
+  if (location.hash) { const [t, c] = location.hash.slice(1).split('-'); setTheme(t); if (c) setScheme(c); }
 
   const banner = document.getElementById('banner');
   const stage = document.getElementById('stage');
