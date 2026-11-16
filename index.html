@@ -54,7 +54,7 @@
   .tick.bl{bottom:22px;left:22px;border-bottom-width:8px;border-left-width:8px}
 
   /* ---------- content ---------- */
-  .content{position:absolute;inset:34px;padding:46px 50px 50px;display:flex;flex-direction:column}
+  .content{position:absolute;inset:34px;padding:14px 50px 86px;display:flex;flex-direction:column}
   .top{display:flex;justify-content:space-between;align-items:center;gap:30px;border-bottom:6px solid var(--ink);padding-bottom:14px}
   .kicker{font-family:'Karantina';font-weight:700;font-size:210px;line-height:1.15;white-space:nowrap;flex:1;min-width:0;padding:0 0 4px}
   .kicker span{color:var(--red)}
@@ -71,7 +71,10 @@
   .track{margin:6px -84px 30px;flex:1;min-height:200px;position:relative}
   .scene{position:absolute;inset:0;width:100%;height:100%;display:none}
   .scene.on{display:block}
-  .sign{position:absolute;left:84px;bottom:30px;font-size:28px;font-weight:600;color:var(--ink);opacity:.75;white-space:nowrap;z-index:3}
+  .sign{position:absolute;left:0;right:0;bottom:0;height:106px;background:var(--red);border-top:6px solid var(--ink);display:flex;align-items:center;justify-content:center;z-index:3;overflow:hidden}
+  .sign span.txt{display:inline-block;flex:none;font-family:'Karantina',sans-serif;font-weight:700;font-size:66px;line-height:1;color:#fff;white-space:nowrap;text-shadow:3px 3px 0 var(--ink)}
+  .sign b{font-size:1em;font-weight:700}
+  .sign .emo{font-size:46px;vertical-align:middle;text-shadow:none;margin:0 10px}
   .schemes{display:flex;gap:10px;justify-content:center}
   .schemes button{width:34px;height:34px;border-radius:50%;border:3px solid transparent;cursor:pointer;padding:0}
   .schemes [data-s].on{border-color:#fff}
@@ -105,7 +108,7 @@
 
 <div class="stage" id="stage">
   <div id="banner">
-    <div class="sign" contenteditable="true">ישי שלום · נעת ספורט יחידתי</div>
+    <div class="sign"><span class="txt" contenteditable="true"><span class="emo">⚽</span><b>ישי שלום</b> · נעת ספורט יחידתי<span class="emo">⚽</span></span></div>
 
     <div class="content">
       <div class="top">
@@ -491,6 +494,32 @@
   }
   document.querySelectorAll('.kicker').forEach(e => e.addEventListener('input', fitAll));
   fitAll(); document.fonts.ready.then(fitAll);
+  // keep the signature band on one line, whatever the font or text
+  function fitSign(){
+    const band = document.querySelector('.sign'), t = band.querySelector('.txt');
+    t.style.transform = 'none';
+    const br = band.getBoundingClientRect(), k = br.height / band.offsetHeight;          // screen px per banner px
+    const w = t.offsetWidth, max = 1080 - 56, sc = w > max ? max / w : 1;
+    // vertical: centre the visible letters of the name in the band, whatever the font's metrics
+    let dy = 0;
+    const big = t.querySelector('b') || t;
+    try {
+      const probe = document.createElement('span');
+      probe.style.cssText = 'display:inline-block;width:0;height:0';
+      big.appendChild(probe);
+      const base = (probe.getBoundingClientRect().bottom - br.top) / k;
+      big.removeChild(probe);
+      const cs = getComputedStyle(big), ctx = document.createElement('canvas').getContext('2d');
+      ctx.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+      const m = ctx.measureText((big.textContent || '').trim() || 'א');
+      const ink = base + (m.actualBoundingBoxDescent - m.actualBoundingBoxAscent) / 2;
+      const tr = t.getBoundingClientRect(), c = ((tr.top + tr.bottom) / 2 - br.top) / k;
+      dy = (6 + (band.offsetHeight - 6) / 2) - (c + (ink - c) * sc);                                       // 68 = middle of the band below its top line
+    } catch (e) {}
+    t.style.transform = 'translateY(' + dy + 'px) scale(' + sc + ')';
+  }
+  document.querySelector('.sign .txt').addEventListener('input', fitSign);
+  fitSign(); document.fonts.ready.then(fitSign);
 
   async function downloadPNG(){
     if (document.activeElement) document.activeElement.blur();
